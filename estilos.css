@@ -1,0 +1,676 @@
+/* ==================== ESTILOS GENERALES ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: #FFFFFF;
+    color: #0C0A09;
+    line-height: 1.6;
+}
+
+/* ==================== ENCABEZADO ==================== */
+header {
+    background: #0C0A09;
+    color: #FFB93B;
+    text-align: center;
+    padding: 2.5rem 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+header h1 {
+    font-size: 2.4rem;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    font-size: 1.1rem;
+    color: #FFFFFF;
+}
+
+/* ==================== SECCIONES ==================== */
+section {
+    padding: 3rem 10%;
+    background: #FFFFFF;
+}
+
+h2 {
+    color: #0C0A09;
+    border-left: 6px solid #FFB93B;
+    padding-left: 10px;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+p, li {
+    color: #0C0A09;
+    margin-bottom: 1rem;
+}
+
+ul, ol {
+    margin-left: 1.5rem;
+}
+
+/* ==================== GALERÍA ==================== */
+.galeria {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.galeria img {
+    width: 100%;
+    height: 250px; /* altura uniforme para todas las imágenes */
+    object-fit: cover; /* mantiene proporción sin deformar */
+    border-radius: 12px;
+    border: 3px solid #FFB93B;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.galeria img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 18px rgba(0,0,0,0.4);
+}
+
+/* ==================== FOLLETO INFORMATIVO ==================== */
+.folleto-imagen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.folleto-imagen img {
+    max-width: 900px;
+    width: 100%;
+    border-radius: 15px;
+    border: 4px solid #FFB93B;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+    transition: transform 0.4s ease;
+}
+
+.folleto-imagen img:hover {
+    transform: scale(1.03);
+}
+
+/* ==================== FORMULARIOS ==================== */
+form {
+    background: #FFFFFF;
+    padding: 2rem;
+    border-radius: 10px;
+    border: 2px solid #FFB93B;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+form label {
+    display: block;
+    margin-top: 1rem;
+    color: #0C0A09;
+}
+
+form input {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 0.3rem;
+}
+
+form button {
+    margin-top: 1.5rem;
+    background: #FFB93B;
+    color: #0C0A09;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s, color 0.3s;
+}
+
+form button:hover {
+    background: #0C0A09;
+    color: #FFB93B;
+}
+
+/* ==================== PIE DE PÁGINA ==================== */
+footer {
+    text-align: center;
+    background: #0C0A09;
+    color: #FFFFFF;
+    padding: 1.5rem;
+    margin-top: 3rem;
+    border-top: 4px solid #FFB93B;
+}
+
+/* ==================== DETALLES VISUALES ==================== */
+section:nth-child(even) {
+    background: #FFF7E3; /* tono dorado muy claro para alternar secciones */
+}
+
+/* ==================== ANIMACIONES ==================== */
+section {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1s ease;
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+header {
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: all 1s ease;
+}
+
+header.header-animado {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.galeria img {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* ==================== SECCIÓN ECUACIONES ==================== */
+.ecuaciones {
+    text-align: center;
+    margin-top: 30px;
+    background: #FFFFFF;
+    padding: 25px;
+    border-radius: 15px;
+    border: 3px solid #FFB93B;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.ecuaciones h3 {
+    color: #0C0A09;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    border-bottom: 2px solid #FFB93B;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.imagenes-ecuaciones {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.imagenes-ecuaciones figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    background: #FFF7E3;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+.imagenes-ecuaciones img {
+    width: 100%;
+    height: auto;
+    border: 2px solid #FFB93B;
+    border-radius: 10px;
+    background: #FFFFFF;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+.imagenes-ecuaciones figcaption {
+    font-size: 0.9em;
+    margin-top: 8px;
+    color: #0C0A09;
+    font-style: italic;
+}
+/* ==================== ANÁLISIS DE GRÁFICAS ==================== */
+#analisis-graficas {
+    text-align: center;
+    background: #FFFFFF;
+    border-top: 4px solid #FFB93B;
+    border-bottom: 4px solid #FFB93B;
+    padding: 3rem 8%;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+#analisis-graficas p {
+    color: #0C0A09;
+    max-width: 900px;
+    margin: 1rem auto;
+    text-align: justify;
+}
+
+.imagenes-graficas {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-top: 2rem;
+}
+
+.imagenes-graficas figure {
+    width: 300px;
+    background: #FFF7E3;
+    border: 3px solid #FFB93B;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+.imagenes-graficas img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.imagenes-graficas figcaption {
+    margin-top: 8px;
+    font-size: 0.9em;
+    color: #0C0A09;
+    font-style: italic;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+    section {
+        padding: 2rem 6%;
+    }
+
+    header h1 {
+        font-size: 1.9rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .folleto-imagen img {
+        max-width: 100%;
+    }
+
+    .imagenes-ecuaciones figure {
+        width: 90%;
+    }
+}
+@media (max-width: 768px) {
+    .galeria img {
+        height: 180px; /* un poco más pequeñas en pantallas pequeñas */
+    }
+}
+
+/* ==================== SLIDER AJUSTADO ==================== */
+#slider {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 500px;
+    background: #0C0A09;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slide {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    height: 100%;
+    transition: opacity 1s ease-in-out;
+}
+
+.slide.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+}
+
+.slide img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    border: 3px solid #FFB93B;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    background-color: #000; /* fondo negro para imágenes con espacios */
+    transition: transform 0.4s ease;
+}
+
+.slide img:hover {
+    transform: scale(1.02);
+}
+
+/* Texto descriptivo */
+.caption {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(12, 10, 9, 0.8);
+    color: #FFB93B;
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+    text-align: center;
+    backdrop-filter: blur(3px);
+}
+
+/* Botones */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 14px;
+    color: #FFB93B;
+    font-weight: bold;
+    font-size: 2rem;
+    border: none;
+    background: rgba(12, 10, 9, 0.6);
+    border-radius: 50%;
+    user-select: none;
+    transition: background 0.3s ease, color 0.3s ease;
+    z-index: 2;
+}
+
+.prev:hover, .next:hover {
+    background: rgba(255, 185, 59, 0.9);
+    color: #0C0A09;
+}
+
+.next {
+    right: 20px;
+}
+
+.prev {
+    left: 20px;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1024px) {
+    #slider {
+        height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    #slider {
+        height: 280px;
+    }
+
+    .caption {
+        font-size: 0.85rem;
+        padding: 8px 14px;
+        bottom: 15px;
+    }
+
+    .prev, .next {
+        font-size: 1.5rem;
+        padding: 8px;
+    }
+}
+/* ==================== PÓSTER DEL PROYECTO ==================== */
+#poster {
+    text-align: center;
+    background: #FFFFFF;
+    border-top: 4px solid #FFB93B;
+    padding: 3rem 8%;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin-top: 2rem;
+}
+
+#poster h2 {
+    color: #0C0A09;
+    border-left: 6px solid #FFB93B;
+    display: inline-block;
+    padding-left: 10px;
+    margin-bottom: 1rem;
+}
+
+#poster p {
+    color: #0C0A09;
+    max-width: 900px;
+    margin: 0 auto 2rem;
+    text-align: justify;
+    line-height: 1.6;
+}
+
+.poster-contenedor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.poster-contenedor img {
+    max-width: 1000px;
+    width: 100%;
+    border: 4px solid #FFB93B;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+    transition: transform 0.4s ease;
+}
+
+.poster-contenedor img:hover {
+    transform: scale(1.03);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #poster p {
+        padding: 0 1rem;
+    }
+
+    .poster-contenedor img {
+        max-width: 100%;
+    }
+}
+/* ==================== BARRA DE NAVEGACIÓN ==================== */
+.navbar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #0C0A09;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 8%;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+}
+
+.logo {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #FFB93B;
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links li a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 6px 10px;
+    border-radius: 4px;
+}
+
+.nav-links li a:hover {
+    background: #FFB93B;
+    color: #0C0A09;
+}
+
+/* Botón menú móvil */
+.menu-toggle {
+    display: none;
+    font-size: 1.8rem;
+    color: #FFB93B;
+    cursor: pointer;
+}
+
+/* Ajuste para header debajo de la barra de navegación */
+header {
+    margin-top: 0; /* elimina el espacio en blanco */
+    padding-top: 110px; /* compensa solo el alto del navbar de forma interna */
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+    .nav-links {
+        position: absolute;
+        top: 70px;
+        right: 0;
+        background: #0C0A09;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        display: none;
+        padding: 1rem 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+
+    .nav-links.active {
+        display: flex;
+        animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links li a {
+        padding: 0.8rem 0;
+        font-size: 1.1rem;
+    }
+}
+/* === Solución definitiva al espacio entre slider y póster === */
+#slider {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+#poster {
+    margin-top: 0 !important;
+    padding-top: 30px; /* espacio justo para el título */
+}
+
+/* Aseguramos que todas las secciones no tengan separación vertical no deseada */
+section + section {
+    margin-top: 0;
+}
+
+/* Corregimos si algún h2 dentro del poster tiene margen superior */
+#poster h2 {
+    margin-top: 0;
+    padding-top: 10px;
+}
+/* === AJUSTE PERFECTO DEL SLIDER === */
+#slider {
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+    background: #0C0A09;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider-container {
+    position: relative;
+    width: 100%;
+    max-height: 550px;
+    overflow: hidden;
+    background: #0C0A09;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Centrar las imágenes sin recortar ni deformar */
+.slider-container img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+    object-fit: contain; /* mantiene proporción natural */
+    object-position: center center;
+}
+
+/* Botones del slider */
+.slider-container .prev,
+.slider-container .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 185, 59, 0.7);
+    color: #0C0A09;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 22px;
+    transition: background-color 0.3s ease;
+    z-index: 10;
+}
+
+.slider-container .prev:hover,
+.slider-container .next:hover {
+    background-color: #FFB93B;
+}
+
+/* Espaciado correcto con el póster */
+#poster {
+    margin-top: 0 !important;
+    padding-top: 40px;
+}
+
+#poster h2 {
+    margin-top: 0;
+    text-align: center;
+}

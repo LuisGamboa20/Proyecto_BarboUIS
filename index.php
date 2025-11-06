@@ -1,0 +1,289 @@
+<?php
+// ==================== CONEXIÓN A LA BASE DE DATOS ====================
+$servername = "localhost";
+$username = "root";
+$password = "1130044074Junior";
+$database = "barbo_uis";
+
+$conn = new mysqli($servername, $username, $password, $database);
+if ($conn->connect_error) {
+    die("Error de conexión: " . $conn->connect_error);
+}
+
+// ==================== GUARDAR DATOS DEL FORMULARIO ====================
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nombre = trim($_POST["nombre"]);
+    $apellido = trim($_POST["apellido"]);
+    $correo = trim($_POST["correo"]);
+    $telefono = trim($_POST["telefono"]);
+
+    // ======== VALIDACIONES ========
+    if (empty($nombre) || empty($apellido) || empty($correo) || empty($telefono)) {
+        echo "<script>alert('⚠️ Todos los campos son obligatorios.');</script>";
+    } elseif (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+        echo "<script>alert('⚠️ Ingrese un correo electrónico válido.');</script>";
+    } elseif (!preg_match('/^[0-9]{7,15}$/', $telefono)) {
+        echo "<script>alert('⚠️ El número de teléfono debe contener solo dígitos (7 a 15 caracteres).');</script>";
+    } elseif (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/', $nombre) || !preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/', $apellido)) {
+        echo "<script>alert('⚠️ El nombre y el apellido solo deben contener letras.');</script>";
+    } else {
+        // ======== VERIFICAR DUPLICADOS ========
+        $check_sql = "SELECT * FROM clientes WHERE correo = '$correo' OR telefono = '$telefono'";
+        $result = $conn->query($check_sql);
+
+        if ($result->num_rows > 0) {
+            echo "<script>alert('⚠️ Ya existe un cliente registrado con este correo o número de teléfono.');</script>";
+        } else {
+            // ======== INSERTAR DATOS ========
+            $sql = "INSERT INTO clientes (nombre, apellido, correo, telefono) 
+                    VALUES ('$nombre', '$apellido', '$correo', '$telefono')";
+            try {
+                if ($conn->query($sql) === TRUE) {
+                    echo "<script>alert('✅ Datos enviados correctamente. Pronto nos pondremos en contacto.');</script>";
+                } else {
+                    echo "<script>alert('❌ Error al enviar los datos: " . addslashes($conn->error) . "');</script>";
+                }
+            } catch (mysqli_sql_exception $e) {
+                // Si MySQL lanza error por duplicado
+                if ($e->getCode() == 1062) {
+                    echo "<script>alert('⚠️ Este correo o teléfono ya está registrado.');</script>";
+                } else {
+                    echo "<script>alert('❌ Error inesperado: " . addslashes($e->getMessage()) . "');</script>";
+                }
+            }
+        }
+    }
+}
+?>
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constructora Antisísmica - Proyecto Maqueta Antisísmica</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="icon" href="imagenes/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="imagenes/favicon.png" type="image/png">
+
+
+</head>
+<body>|
+    <!-- ==================== BARRA DE NAVEGACIÓN ==================== -->
+    <nav class="navbar">
+        <div class="logo">Constructora Antisísmica</div>
+        <ul class="nav-links">
+            <li><a href="#mision-vision">Inicio</a></li>
+            <li><a href="#problema">Problema</a></li>
+            <li><a href="#objetivos">Objetivos</a></li>
+            <li><a href="#metodologia">Metodología</a></li>
+            <li><a href="#analisis-graficas">Gráficas</a></li>
+            <li><a href="#slider">Fotos</a></li>
+            <li><a href="#poster">Póster</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+        <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+    </nav>
+
+    <header>
+        <h1>Constructora Antisísmica S.A.</h1>
+        <p>Diseñamos y construimos edificaciones seguras y sostenibles aplicando principios de ingeniería estructural avanzada.</p>
+    </header>
+
+        <section id="mision-vision">
+            <h2>Proyecto Académico ODS 11</h2>
+            <p><strong>Título:</strong> Diseño y construcción de una maqueta antisísmica con aislamiento por esferas metálicas para promover ciudades sostenibles (ODS 11).</p>
+            <p><strong>Autores:</strong> Angela Mariana Porras Sánchez, Mabel Liseth Suárez Peña, y Luis Carlos Gamboa Chávez.</p>
+            <p><strong>Asignatura:</strong> Multiples asignaturas | Fecha: 05/11/2025</p>
+        </section>
+
+
+
+    <section id="problema">
+        <h2>Formulación del Problema</h2>
+        <p>Durante un sismo, las aceleraciones del suelo se transmiten directamente a los edificios. Si una estructura está rígidamente unida a su base, las fuerzas inerciales pueden causar deformaciones o incluso el colapso.</p>
+        <p>Para reducir este efecto, se emplean técnicas de aislamiento sísmico que desacoplan el movimiento del suelo respecto al edificio. En este proyecto se construyeron dos maquetas: una sin aislamiento y otra con esferas metálicas que permiten el rodamiento entre la base y la estructura. Estas esferas disminuyen la aceleración transmitida y estabilizan el edificio.</p>
+    </section>
+
+    <section id="justificacion">
+        <h2>Justificación</h2>
+        <p>El comportamiento dinámico de las estructuras durante un sismo puede modelarse mediante ecuaciones diferenciales de segundo orden, basadas en la segunda ley de Newton. En este caso, se estudia un sistema sin resorte donde la masa y el amortiguamiento definen la respuesta del edificio.</p>
+        <p>El uso de acelerómetros permite comparar los datos experimentales con las soluciones teóricas, demostrando cómo las esferas metálicas reducen la aceleración y mejoran la estabilidad de la maqueta.</p>
+    </section>
+
+    <section id="objetivos">
+        <h2>Objetivos</h2>
+        <p><strong>Objetivo general:</strong> Modelar y analizar, mediante ecuaciones diferenciales y mediciones de aceleración, el comportamiento de una maqueta antisísmica con aislamiento por esferas metálicas.</p>
+        <p><strong>Objetivos específicos:</strong></p>
+        <ul>
+            <li>Construir dos maquetas: una con aislamiento por esferas metálicas y otra sin aislamiento.</li>
+            <li>Formular la ecuación diferencial que describe el movimiento del sistema con inercia y rozamiento.</li>
+            <li>Registrar experimentalmente las aceleraciones mediante acelerómetros.</li>
+            <li>Analizar los datos y comparar las respuestas dinámicas.</li>
+            <li>Validar el modelo matemático con los resultados experimentales.</li>
+        </ul>
+    </section>
+
+    <section id="metodologia">
+        <h2>Diseño Metodológico</h2>
+        <p>El proyecto se desarrolló en cuatro etapas principales:</p>
+        <ol>
+            <li><strong>Investigación teórica:</strong> Revisión de ecuaciones diferenciales aplicadas a sistemas dinámicos y modelos de aislamiento sísmico.</li>
+            <li><strong>Diseño del prototipo:</strong> Construcción de dos maquetas idénticas, una con base fija y otra con esferas metálicas que actúan como aisladores sísmicos.</li>
+            <li><strong>Modelado matemático:</strong> Se empleó un modelo masa–rozamiento sin resorte, representado por una ecuación diferencial de segundo orden que describe el amortiguamiento del sistema.</li>
+            <li><strong>Construcción y pruebas:</strong> Se sometieron ambas maquetas a vibraciones controladas y se midieron las aceleraciones mediante sensores.</li>
+        </ol>
+
+<!-- ================== SECCIÓN DE ECUACIONES DIFERENCIALES ================== -->
+<div class="ecuaciones">
+    <h3>Ecuaciones Diferenciales Utilizadas</h3>
+    <p>
+        Las siguientes ecuaciones representan el modelo matemático del sistema antisísmico con aislamiento por esferas metálicas. 
+        Se muestran la formulación general, la simplificación al no existir rigidez elástica y el desarrollo de la solución analítica.
+    </p>
+
+    <div class="imagenes-ecuaciones">
+        <!-- Ecuación 1 -->
+        <figure>
+            <img src="imagenes/ecuacion1.jpg" alt="Ecuación diferencial general con masa, amortiguamiento y rigidez k">
+            <figcaption><strong>Ecuación 1.</strong> Ecuación general del sistema masa–resorte–amortiguador.</figcaption>
+        </figure>
+
+        <!-- Ecuación 2 -->
+        <figure>
+            <img src="imagenes/ecuacion2.jpg" alt="Ecuación diferencial sin rigidez elástica">
+            <figcaption><strong>Ecuación 2.</strong> Modelo sin resorte: sistema con masa y amortiguamiento.</figcaption>
+        </figure>
+
+        <!-- Ecuación 3 -->
+        <figure>
+            <img src="imagenes/ecuacion3.jpg" alt="Ecuación reescrita en términos de z(t)">
+            <figcaption><strong>Ecuación 3.</strong> Reescritura en función del desplazamiento relativo \( z(t) = x(t) - y(t) \).</figcaption>
+        </figure>
+
+        <!-- Ecuación 4 -->
+        <figure>
+            <img src="imagenes/ecuacion4.jpg" alt="Sistema cuando la base deja de moverse">
+            <figcaption><strong>Ecuación 4.</strong> Condición cuando la base deja de moverse (\( \ddot{y} = 0 \)).</figcaption>
+        </figure>
+
+        <!-- Ecuación 5 -->
+        <figure>
+            <img src="imagenes/ecuacion5.jpg" alt="Ecuación reducida dividiendo por m">
+            <figcaption><strong>Ecuación 5.</strong> Ecuación reducida al dividir entre la masa \( m \).</figcaption>
+        </figure>
+
+        <!-- Ecuación 6 -->
+        <figure>
+            <img src="imagenes/ecuacion6.jpg" alt="Solución de la ecuación diferencial en velocidad v(t)">
+            <figcaption><strong>Ecuación 6.</strong> Solución en velocidad \( v(t) \) considerando amortiguamiento.</figcaption>
+        </figure>
+
+        <!-- Ecuación 7 -->
+        <figure>
+            <img src="imagenes/ecuacion7.jpg" alt="Solución general del desplazamiento z(t)">
+            <figcaption><strong>Ecuación 7.</strong> Solución general del desplazamiento amortiguado \( z(t) \).</figcaption>
+        </figure>
+    </div>
+
+    <p>
+        Estas ecuaciones permiten analizar cómo el sistema con aislamiento por esferas metálicas reduce la transmisión de aceleraciones, 
+        validando experimentalmente la efectividad del modelo de amortiguamiento propuesto.
+    </p>
+</div>
+    </section>
+
+<!-- ================== FIN DE SECCIÓN DE ECUACIONES ================== -->
+    <section id="analisis-graficas">
+        <h2>Análisis de Gráficas Experimentales</h2>
+        <p>
+            Tras comparar los datos del edificio con amortiguadores frente al edificio sin amortiguadores,
+            se observa claramente que la presencia de los amortiguadores reduce de manera notable la amplitud
+            de las vibraciones en los tres ejes. En el edificio sin amortiguación aparecen picos más altos,
+            variaciones más bruscas y una respuesta vibratoria más extensa, lo que indica que la energía del
+            movimiento tarda más en disiparse.
+        </p>
+        <p>
+            En cambio, en el edificio con amortiguadores las oscilaciones se mantienen dentro de un rango menor,
+            los picos extremos disminuyen y el comportamiento general resulta más estable. Esto significa que los
+            amortiguadores están cumpliendo su función al disipar energía, controlar la resonancia y limitar la
+            transmisión del movimiento dentro de la estructura.
+        </p>
+        <p>
+            En conclusión, los datos muestran que el edificio sin amortiguadores es más susceptible a movimientos
+            intensos y posibles daños por fatiga estructural, mientras que con amortiguación el comportamiento
+            dinámico mejora significativamente, aumentando la seguridad, reduciendo el estrés sobre los elementos
+            del edificio y demostrando que los amortiguadores efectivamente están funcionando de manera correcta.
+        </p>
+
+        <div class="imagenes-graficas">
+            <figure>
+                <img src="imagenes/grafica1.jpg" alt="Amortiguado">
+                <figcaption>Comparación de vibraciones en el sistema amortiguado</figcaption>
+            </figure>
+            <figure>
+                <img src="imagenes/grafica2.jpg" alt="No amortiguado">
+                <figcaption>Comparación de vibraciones en el sistema no amortiguado</figcaption>
+            </figure>
+        </div>
+    </section>
+        <section id="slider">
+        <div class="slider-container">
+            <div class="slide active">
+                <img src="imagenes/maqueta2.jpg" alt="Maqueta antisísmica en prueba de vibración">
+            </div>
+            <div class="slide">
+                <img src="imagenes/maqueta1.jpg" alt="Imagen maqueta">
+            </div>
+            <div class="slide">
+                <img src="imagenes/favicon.png" alt="Logo proyecto">
+            </div>
+            <div class="slide">
+                <img src="imagenes/U25Fest.png" alt="Logo u25">
+            </div>
+            <div class="slide">
+                <img src="imagenes/BarboUis.jpg" alt="Logo BarboUis">
+            </div>
+            <!-- Botones de navegación -->
+            <button class="prev" onclick="moverSlide(-1)">&#10094;</button>
+            <button class="next" onclick="moverSlide(1)">&#10095;</button>
+        </div>
+    </section>
+    <section id="poster">
+        <h2>Póster del Proyecto</h2>
+        <p>
+            A continuación se presenta el póster informativo del proyecto “Diseño y construcción de una maqueta antisísmica 
+            con aislamiento por esferas metálicas para promover ciudades sostenibles”. Este resumen visual integra los 
+            principales objetivos, metodología, resultados y conclusiones obtenidas.
+        </p>
+        <div class="poster-contenedor">
+            <img src="imagenes/poster.png" alt="Póster del proyecto antisísmico">
+        </div>
+    </section>
+
+    <section id="contacto">
+        <h2>Solicita Más Información</h2>
+        <form method="POST" action="">
+            <label for="nombre">Nombre:</label>
+            <input type="text" name="nombre" id="nombre" required>
+
+            <label for="apellido">Apellido:</label>
+            <input type="text" name="apellido" id="apellido" required>
+
+            <label for="correo">Correo electrónico:</label>
+            <input type="email" name="correo" id="correo" required>
+
+            <label for="telefono">Teléfono:</label>
+            <input type="text" name="telefono" id="telefono" required>
+
+            <button type="submit">Enviar Información</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>© 2025 Constructora Antisísmica S.A. | Proyecto académico realizado por estudiantes de la Universidad Industrial de Santander (UIS-Barbosa)</p>
+    </footer>
+    <script src="animaciones.js"></script>
+</body>
+</html>
